@@ -30,5 +30,6 @@ public class Main {
             default:
                 System.out.println("Erro: Digite uma opção válida. Escolha 1, 2 ou 3");
         }
+        entrada.close();
     }
 }
