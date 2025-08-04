@@ -2,6 +2,10 @@ public class Usuario {
     private String nomeUsuario;
     private String senhaUsuario;
 
+    public Usuario(){
+
+    }
+
     public Usuario(String nomeUsuario, String senhaUsuario) {
         this.nomeUsuario = nomeUsuario;
         this.senhaUsuario = senhaUsuario;

@@ -36,16 +36,44 @@ public class GerenciadorDeLogin {
         return usuarioEncontrado;
     }
 
+
     public static void registrarUsuario(String usuario, String senha){
         final String ARQUIVO_LOGIN = "login.csv";
+        boolean usuarioJaExisteNoArquivo = false;
+
+        try {
+            BufferedReader leitor = new BufferedReader(new FileReader(ARQUIVO_LOGIN));
+            String linha = leitor.readLine();
+
+            while (linha != null) {
+                String[] dadosUsuario = linha.split(",");
+                if (dadosUsuario.length == 2) {
+                    String usuarioExistente = dadosUsuario[0].trim();
+                    if (usuarioExistente.equals(usuario)) {
+                        usuarioJaExisteNoArquivo = true;
+                        break;
+                    }
+                }
+                linha = leitor.readLine();
+            }
+            leitor.close();
+        } catch (IOException erro) {
+                System.out.println("O arquivo de 'login.csv' ainda não existe, ele será criado.");
+        }
+
+        if (usuarioJaExisteNoArquivo) {
+            System.out.println("Usuário já está registrado! Registro cancelado.");
+            return;
+        }
+
         Usuario novoUsuario = new Usuario(usuario, senha);
-        try{
+        try {
             BufferedWriter gravador = new BufferedWriter(new FileWriter(ARQUIVO_LOGIN, true));
             gravador.write(novoUsuario.exibirDadosUsuario() + "\n");
             System.out.println("O usuário foi registrado com sucesso!");
             gravador.close();
-        }catch(IOException erro){
-            System.out.println("Erro: falha ao criar arquivo ("+ ARQUIVO_LOGIN +") : " + erro.getMessage());
+        } catch (IOException erro) {
+            System.out.println("Erro: falha ao criar arquivo (" + ARQUIVO_LOGIN + ") : " + erro.getMessage());
         }
     }
 }
