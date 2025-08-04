@@ -8,7 +8,7 @@ public class Main {
     public static void menu(){
         Scanner entrada = new Scanner(System.in);
         System.out.println("-- MENU --");
-        System.out.println("1 - Realizar Cadastro");
+        System.out.println("1 - Realizar Cadastro (cria o arquivo .csv, caso não tenha)");
         System.out.println("2 - Realizar Login");
         System.out.println("3 - Sair");
         System.out.print("Digite uma opção: ");
